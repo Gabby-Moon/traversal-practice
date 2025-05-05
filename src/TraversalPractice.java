@@ -8,7 +8,12 @@ public class TraversalPractice {
    * @param node The root of the tree to print
    */
   public static void printOddNodes(Node<Integer> node) {
-
+    if(node == null) return;
+    printOddNodes(node.left);
+    printOddNodes(node.right);
+    if(node.value % 2 == 1) {
+      System.out.println(node.value);
+    }
   }
 
   /**
@@ -20,7 +25,13 @@ public class TraversalPractice {
    * @param node The root of the tree to print
    */
   public static <T> void printNodesWithOneChild(Node<T> node) {
-    
+    if(node == null) return;
+    if(node.right == null && node.left == null) return;
+    else if(node.right == null || node.left == null){
+      System.out.println(node.value);
+    }
+    printNodesWithOneChild(node.left);
+    printNodesWithOneChild(node.right);
   }
 
     /**
@@ -32,7 +43,10 @@ public class TraversalPractice {
    * @return the sum 
    */
   public static int treeSum(Node<Integer> node) {
-    return 0;
+    if(node == null) return 0;
+    int leftTotal = treeSum(node.left);
+    int rightTotal = treeSum(node.right);
+    return leftTotal + rightTotal + node.value;
   }
 
   /**
@@ -45,7 +59,13 @@ public class TraversalPractice {
    * @return the max value
    */
   public static int maxVal(Node<Integer> node) {
-    return 0;
+    if(node == null) return 0;
+    int leftMax = maxVal(node.left);
+    int rightMax = maxVal(node.right);
+    int currentMax = node.value;
+    if(leftMax > currentMax) currentMax = leftMax;
+    if(rightMax > currentMax) currentMax = rightMax;
+    return currentMax;
   }
 
   /**
@@ -58,7 +78,13 @@ public class TraversalPractice {
    * @return The number of levels in the tree
    */
   public static <T> int numLevels(Node<T> node) {
-    return 0;
+    if(node == null) return 0;
+    if(node.right == null && node.left == null) return 1;
+    int leftMax = numLevels(node.left);
+    int rightMax = numLevels(node.right);
+    int max = leftMax;
+    if(max < rightMax) max = rightMax;
+    return max + 1;
   }
 
   public static void main(String[] args) {
